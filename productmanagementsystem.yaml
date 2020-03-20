@@ -1,0 +1,560 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'ProductManagementSystem'
+  description: 'APIs for Product Management System which includes products, brands, categories, stores and users'
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Anandaveeryan/ProductManagementSystem/1.0.0
+paths:
+  '/products':
+    get:
+      description: Get info about all the products
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+    post:
+      description: Creates new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        200:
+          description: New product successfully created
+  
+  '/products/{productId}':
+    get:
+      description: Get information about all the products available
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Id of the product
+          schema:
+            type: integer
+            example: 16
+      responses:
+        200:
+          description: Successful retrieval of product info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    delete:
+      description: Delete the product
+      parameters: 
+        - name: productId
+          in: path
+          required: true
+          description: Id of the product
+          schema:
+            type: integer
+            example: 16
+      responses:
+        200:
+          description: Successful deletion of the product
+    put:
+      description: Edit the product details
+      parameters: 
+        - name: productId
+          in: path
+          required: true
+          description: Id of the product
+          schema:
+            type: integer
+            example: 16
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        200:
+          description: Successful updation of product details
+  
+  '/products/{productId}/colour':
+    get:
+      description: Get information about colours available
+      parameters: 
+        - name: productId
+          in: path
+          required: true
+          description: id of the product
+          schema:
+            type: integer
+            example: 16
+      responses:
+        200:
+          description: Successful retrieval of colours
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: [red,yellow,green]
+                
+  '/products/{productId}/size':
+    get:
+      description: Get information about sizes available
+      parameters: 
+        - name: productId
+          in: path
+          required: true
+          description: id of the product
+          schema:
+            type: integer
+            example: 15
+      responses:
+        200:
+          description: Successful retrieval of sizes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: [small,medium,large]
+  
+  '/products/{brandName}':
+    get:
+      description: Get information about products of a particular brand
+      parameters: 
+        - name: brandName
+          in: path
+          required: true
+          description: brandname of the product
+          schema:
+            type: string
+            example: adidas
+      responses:
+        200:
+          description: Successful retrieval of products based on brandname
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+  
+  '/products/{productType}':
+    get:
+      description: Get information about the products of particular type
+      parameters: 
+        - name: productType
+          in: path
+          required: true
+          description: type of the product
+          schema:
+            type: string
+            example: Sports shoe
+      responses:
+        200:
+          description: Successful retrieval of products based on product type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+
+  '/brands':
+    get:
+      description: Get information about all the brands
+      responses:
+        200:
+          description: Successful retrieval of brand info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brands'
+    post:
+      description: Creates new brand
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brand'
+      responses:
+        200:
+          description: New brand successfully created
+  
+  '/brands/{brandName}':
+    get:
+      description: Get information about the particular brand
+      parameters:
+        - name: brandName
+          in: path
+          required: true
+          description: name of the brand
+          schema:
+            type: string
+            example: adidas
+      responses:
+        200:
+          description: Successful retrieval of brand info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+    delete:
+      description: Delete particular brand
+      parameters: 
+        - name: brandName
+          in: path
+          required: true
+          description: name of the brand 
+          schema:
+            type: string
+            example: adidas
+      responses:
+        200:
+          description: Successful deletion of brand
+    put:
+      description: Edit the Brand details
+      parameters: 
+        - name: brandName
+          in: path
+          required: true
+          description: name of the brand
+          schema:
+            type: string
+            example: adidas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brand'
+      responses:
+        200:
+          description: Successful updation of brand details
+          
+  '/categories':
+    get:
+      description: Get information about the categories of product
+      responses:
+        200:
+          description: Successful retrieval of categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categories'
+    post:
+      description: Creates new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        200:
+          description: New category successfully created
+  
+  '/categories/{categoryName}':
+    get:
+      description: Get information about particular category
+      parameters:
+        - name: categoryName
+          in: path
+          required: true
+          description: name of the category
+          schema:
+            type: string
+            example: Electronics
+      responses:
+        200:
+          description: Successful retrieval of particular category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+    delete:
+      description: Delete information about particular category
+      parameters: 
+        - name: categoryName
+          in: path
+          required: true
+          description: name of the category
+          schema:
+            type: string
+            example: Electronics
+      responses:
+        200:
+          description: Successful deletion of particular category
+    put:
+      description: Edit the category details
+      parameters: 
+        - name: categoryName
+          in: path
+          required: true
+          description: name of the category
+          schema:
+            type: string
+            example: Electronics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        200:
+          description: Successful updation of category details
+    
+  '/stores':
+    get:
+      description: Get information about all the stores which have products
+      responses:
+        200:
+          description: Successful retrieval of stores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stores'
+    post:
+      description: Creates new store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Store'
+      responses:
+        200:
+          description: New store successfully created
+  
+  '/stores/{storeId}':
+    get:
+      description: Get information about particular store
+      parameters:
+        - name: storeId
+          in: path
+          required: true
+          description: id of the store
+          schema:
+            type: integer
+            example: 10
+      responses:
+        200:
+          description: Successful retrieval of store based on store id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store'
+    delete:
+      description: Delete information about particular store
+      parameters:
+        - name: storeId
+          in: path
+          required: true
+          description: id of the store
+          schema:
+            type: integer
+            example: 10
+      responses:
+        200:
+          description:  Successful deletion of store based on store id
+    put:
+      description: Edit the store details
+      parameters: 
+        - name: storeId
+          in: path
+          required: true
+          description: Id of the store
+          schema:
+            type: integer
+            example: 16
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Store'
+      responses:
+        200:
+          description: Successful updation of product details
+  
+  '/users':
+    get:
+      description: Get information about the users
+      responses:
+        200:
+          description: Successful retrieval of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+    post:
+      description: Creates new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        200:
+          description: New user successfully created
+          
+  '/users/{userName}':
+    get:
+      description: Get information about particular user
+      parameters: 
+        - name: userName
+          in: path
+          required: true
+          description: name of the user
+          schema:
+            type: string
+            example: anand
+      responses:
+        200:
+          description: Successful retrieval of user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      description: Delete information about particular user
+      parameters: 
+        - name: userName
+          in: path
+          required: true
+          description: name of the user
+          schema:
+            type: string
+            example: anand
+      responses:
+        200:
+          description: Successful deletion of user
+    put:
+      description: Edit the user details
+      parameters: 
+        - name: userName
+          in: path
+          required: true
+          description: name of the user
+          schema:
+            type: string
+            example: anand
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: Successful updation of user details
+  
+components:
+  schemas:
+    Products:
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
+
+    Product:
+      type: object
+      properties:
+        productId:
+          type: integer
+          example: 16
+        product name:
+          type: string
+          example: Samsung M31
+        category name:
+          type: string
+          example: Electronics
+        product type:
+          type: string
+          example: Mobiles
+        product brand:
+          type: string
+          example: Samsung
+        colour:
+          type: array
+          items:
+            type: string
+          example: [red,yellow,orange,blue]
+        size:
+          type: array
+          items:
+            type: string
+          example: [small,large,medium]
+        price:
+          type: number
+          example: 55.55
+    
+    Brand:
+      type: object
+      properties:
+        brandName:
+          type: string
+          example: adidas
+        producttype:
+          type: array
+          items:
+            type: string
+          example: [shoes,bats]
+    
+    Brands:
+      type: array
+      items:
+        $ref: '#/components/schemas/Brand'
+    
+    Categories:
+      type: array
+      items:
+        type: string
+      example: [Electronics,Footwears]
+    
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+          example: Shoes
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    
+    Stores:
+      type: array
+      items:
+        $ref: '#/components/schemas/Store'
+    
+    Store:
+      type: object
+      properties:
+        storeId:
+          type: integer
+          example: 10
+        productslist:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+            
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 14
+        name:
+          type: string
+          example: anand
+        designation:
+          type: string
+          example: manager
+        contact:
+          type: string
+          example: 9876543210
+    
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
